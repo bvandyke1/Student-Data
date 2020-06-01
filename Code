@@ -1,0 +1,129 @@
+/* Title: Student Data
+   Author: Brandon VanDyke
+   Date: 05/06/19
+   Purpose: create two structs, populate them with data, and output what is entered */
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+enum PROGRAM {CSCI, DBMS, INFM, SDEV, CSIA};
+//enum data type for academic programs
+
+struct NAME 
+{
+    string firstName;
+    string middleInitial;
+    string lastName;
+};
+//struct for each student's name 
+
+struct STUDENT
+{
+    NAME name;
+    int ID;
+    string email;
+    int socSec;
+    PROGRAM academic;
+};
+//struct containing all student data to receive input, including struct and enum data types 
+void populateArray(STUDENT student[]);
+void displayRecords(STUDENT student[]);
+//declare function for use in main 
+
+int main()
+{
+    STUDENT records[4];
+    //declare an array for the structs, with room for four students
+    
+    populateArray(records);
+    //call function to input student data 
+    displayRecords(records);
+    //call function to output student data 
+    return 0;
+}
+
+void populateArray(STUDENT student[])
+{
+    int i;
+    //variable to increment the loop
+    string academicProgram;
+    //variable to convert string to enum data type 
+    for (i = 0; i < 4; i++) {
+        cout << "Please enter the student's first name" << endl; 
+        cin  >> student[i].name.firstName;
+        
+        cout << "Enter their middle initial" << endl;
+        cin  >> student[i].name.middleInitial;
+        
+        cout << "Enter their last name" << endl;
+        cin  >> student[i].name.lastName;
+        
+        cout << "Enter their five-digit student ID" << endl;
+        cin  >> student[i].ID; 
+        
+        cout << "Enter their email address" << endl;
+        cin  >> student[i].email;
+        
+        cout << "Enter the last four of their social security" << endl;
+        cin  >> student[i].socSec;
+        
+        cout <<"Enter their program, choosing from CSCI, DBMS, INFM, SDEV, or CSIA" << endl;
+        cin  >> academicProgram;
+        
+        if (academicProgram == "CSCI") {
+            student[i].academic = CSCI;
+        }
+        else if (academicProgram == "DBMS")  {
+            student[i].academic = DBMS;
+        }
+        else if (academicProgram == "INFM")  {
+            student[i].academic = INFM;
+        }
+        else if (academicProgram == "SDEV")  {
+            student[i].academic = SDEV;
+        }
+        else if (academicProgram == "CSIA")  {
+            student[i].academic = CSIA;
+        }
+        //prompt for input to fill each of the variables in the struct, four times
+        //if statements are there for converting input to enum
+        cout << endl;
+    }
+}
+
+void displayRecords(STUDENT student[])
+{
+    int i;
+    //increment variable
+    string program;
+    //variable to convert enum to string, for output 
+    for (i = 0; i < 4; i++) {
+        cout << "Student " << i + 1 << endl
+             << "Name: " << student[i].name.lastName << ", "
+             << student[i].name.firstName << " " << student[i].name.middleInitial << endl
+             << "ID: " << student[i].ID << endl
+             << "Email: " << student[i].email << endl
+             << "SSN: " << student[i].socSec << endl;
+             
+             switch (student[i].academic)   {
+                 case 0:
+                 program = "CSCI"; break;
+                 
+                 case 1:
+                 program = "DBMS"; break;
+                 
+                 case 2:
+                 program = "INFM"; break;
+                 
+                 case 3:
+                 program = "SDEV"; break;
+                 
+                 case 4:
+                 program = "CSIA"; break;
+             }
+             cout << "Program: " << program << endl << endl;
+             //loop that outputs the data held in each of the student array structs
+             //switch statment to convert enum to string, for output 
+    }
+}
